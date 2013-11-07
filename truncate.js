@@ -27,15 +27,35 @@ angular.module('truncate', [])
             if (isNaN(words)) return input;
             if (words <= 0) return '';
             if (input) {
-                var inputWords = input.split(/\s+/);
+                var inputWords = input.split(/\s+/);  // split on 1 or more spaces
                 if (inputWords.length > words) {
                     input = inputWords.slice(0, words).join(' ') + '...';
                 }
             }
             return input;
         };
-    })
-    .filter('manualinput', function(){
+    }).filter('mixed', function(){
+			return function(input, numWords, numChars){
+
+				if (input){
+					if (isNaN(numChars)) return input;
+					if (numChars <= 0) return '';
+					if (input && input.length >= numChars) {
+						input = input.substring(0, numChars);
+						input = input + '...';
+					} 
+					
+					var inputWords = input.split(/\s+/);  
+					if (inputWords.length > numWords) {
+							input = inputWords.slice(0, numWords).join(' ') + '...';
+					}
+				
+				}// end if input
+				
+				return input;
+			}// end return
+
+	}).filter('manualinput', function(){
         return function(input, thetext){
             if (thetext <= 0) return '';
             if (input){

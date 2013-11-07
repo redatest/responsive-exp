@@ -11,31 +11,47 @@
     <script src="app.js"></script>
     <script type="text/javascript" src="truncate.js"></script>
   </head>
-  
 
   <body ng-controller='responsive'>
 
 	<div class="container" ng-controller="demoController" >
-		<h2>Angular Truncate Demo</h2>
-        <br/>
-        <div class="hero-unit">
-            <h4> Manual input text </h4>
-            <textarea ng-model="text" cols="30" rows="3"></textarea><br/>
 
+		<h2>Angular Truncate Demo</h2>
+
+		<div class="hero-unit" ng-controller='mixedcontroller'>
+			<h3>number of showed characters and words is auto calaculated (to be used in the project) </h3>
+			<span class="alert"> screen width = {{ width }} </span><br/><br/>
+			
+			<textarea ng-model="text" rows="3" placeholder="Enter test text"></textarea><br/>
+			<input ng-model="numWords" ng-disabled='true' type="number"/><br/>
+			<input ng-model="numChars" ng-disabled='true' type="number"/><br/>
+			<div class="well text-info">
+				{{ text | mixed:numWords:numChars }}
+			</div>
+
+            <h3>Manuall input text</h3>
+            <textarea ng-model='text' cols="30" rows="3"></textarea>
             <div class="well text-info">
                 <span ng-show="normalsz"> {{ text|manualinput:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore '}} </span>
                 <span ng-show="mediumsz"> {{ text|manualinput:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod ...'}} </span>
                 <span ng-show="smallsz">  {{ text|manualinput:'lorem ipsum dolore...'}} </span>
             </div>
-
-        </div>
+		</div>
+		
+		<div class="hero-unit">
+			<h3>number of showed characters and words is manually calaculated</h3>
+			<span class="alert"> width = {{ width }} </span><br/><br/>
+			
+			<textarea ng-model="text" rows="3" placeholder="Enter test text"></textarea><br/>
+			<input ng-model="numWords" type="number"/><br/>
+			<input ng-model="numChars" type="number"/><br/>
+			<div class="well text-info">
+				{{ text | mixed:numWords:numChars }}
+			</div>
+		</div>
 
 		<div class="hero-unit">
-			<span class="alert"> width = {{ width }} </span>
-			<br/>
-			<tr/>
-			<br/>
-			<h4>Example Text</h4>
+			<h3>number of showed characters is manually calaculated</h3>
 			<textarea ng-model="text" rows="3" placeholder="Enter test text"></textarea>
 			<br><br>
 			<strong>Truncate by characters</strong>
@@ -57,7 +73,7 @@
 		</div> <!--	end hero unit	-->
 		
 		<div class="hero-unit">
-			<strong>Truncate by words</strong>
+			<h3>number of showed words is manually calaculated</h3>
 			<label>Number of words:
 			<input ng-model="numWords" type="number"/>
 			</label>
